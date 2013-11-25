@@ -272,6 +272,8 @@ foreign import ccall "config_setting_remove_elem" c_ConfigSettingRemoveElem ::
     -> CUInt
     -> IO C_LibconfigStatus 
 
+-- Only supported by libconfig >= 1.4.9, which is not available in Wheezy
+
 -- foreign import ccall "config_root_setting" c_ConfigRootSetting ::
 --     C_LibconfigHandle
 --     -> IO C_LibconfigSettingHandle
@@ -337,6 +339,6 @@ foreign import ccall "config_setting_remove_elem" c_ConfigSettingRemoveElem ::
 --     -> Ptr a
 --     -> IO ()
 -- 
-foreign import ccall "config_setting_get_hook" c_ConfigSettingGetHook ::
-    C_LibconfigSettingHandle
-    -> IO (Ptr a)
+-- foreign import ccall "config_setting_get_hook" c_ConfigSettingGetHook ::
+--     C_LibconfigSettingHandle
+--     -> IO (Ptr a)
