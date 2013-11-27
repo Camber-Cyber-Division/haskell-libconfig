@@ -22,6 +22,8 @@ module Data.LibConfig.Internal where
 import Foreign.Ptr
 import Foreign.C.Types
 import Foreign.C.String
+import Foreign.Storable
+import Data.Typeable
 
 data C_LibconfigCfg = C_LibconfigCfg
 data C_LibconfigSetting = C_LibconfigSetting
@@ -272,73 +274,86 @@ foreign import ccall "config_setting_remove_elem" c_ConfigSettingRemoveElem ::
     -> CUInt
     -> IO C_LibconfigStatus 
 
--- Only supported by libconfig >= 1.4.9, which is not available in Wheezy
+foreign import ccall "config_setting_index" c_ConfigSettingIndex ::
+    C_LibconfigSettingHandle
+    -> IO CInt
 
+foreign import ccall "config_setting_length" c_ConfigSettingLength ::
+    C_LibconfigSettingHandle
+    -> IO CInt
+
+foreign import ccall "config_setting_set_hook" c_ConfigSettingSetHook ::
+    C_LibconfigSettingHandle
+    -> Ptr a
+    -> IO ()
+
+{- The following functions are implemented in libconfig.h as macros -}
+-- Implemented as a macro
 -- foreign import ccall "config_root_setting" c_ConfigRootSetting ::
 --     C_LibconfigHandle
 --     -> IO C_LibconfigSettingHandle
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_name" c_ConfigSettingName ::
 --     C_LibconfigSettingHandle
 --     -> IO CString
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_parent" c_ConfigSettingParent ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigSettingHandle
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_root" c_ConfigSettingIsRoot ::
 --     C_LibconfigSettingHandle
 --     -> IO CInt
--- 
--- foreign import ccall "config_setting_index" c_ConfigSettingIndex ::
---     C_LibconfigSettingHandle
---     -> IO CInt
--- 
--- foreign import ccall "config_setting_length" c_ConfigSettingLength ::
---     C_LibconfigSettingHandle
---     -> IO CInt
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_type" c_ConfigSettingType ::
 --     C_LibconfigSettingHandle
 --     -> IO CInt
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_group" c_ConfigSettingIsGroup ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_array" c_ConfigSettingIsArray ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_list" c_ConfigSettingIsList ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_aggregate" c_ConfigSettingIsAggregate ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_scalar" c_ConfigSettingIsScalar ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_is_number" c_ConfigSettingIsNumber ::
 --     C_LibconfigSettingHandle
 --     -> IO C_LibconfigStatus
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_source_file" c_ConfigSettingSourceFile ::
 --     C_LibconfigSettingHandle
 --     -> IO CString
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_source_line" c_ConfigSettingSourceLine ::
 --     C_LibconfigSettingHandle
 --     -> IO CUInt
--- 
--- foreign import ccall "config_setting_set_hook" c_ConfigSettingSetHook ::
---     C_LibconfigSettingHandle
---     -> Ptr a
---     -> IO ()
--- 
+
+-- Implemented as a macro
 -- foreign import ccall "config_setting_get_hook" c_ConfigSettingGetHook ::
 --     C_LibconfigSettingHandle
 --     -> IO (Ptr a)
